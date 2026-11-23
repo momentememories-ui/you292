@@ -168,7 +168,6 @@
             50% { transform: translateX(-50%) scale(1.06); }
         }
 
-        /* ข้อความล่างสุดเปลี่ยนเป็นสีขาวเรียบร้อยแล้ว */
         .bottom-hint-text {
             position: absolute;
             bottom: 25px;
@@ -208,7 +207,7 @@
 
         .puzzle-box {
             background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255, 240, 245, 0.95));
-            padding: 15px;
+            padding: 18px 15px;
             border-radius: 25px;
             text-align: center;
             width: 100%;
@@ -226,16 +225,17 @@
         .puzzle-box p {
             font-size: 0.8rem;
             color: #c71585;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
+        /* กรอบจิ๊กซอว์สัดส่วน 5:4 (พื้นที่ภาพด้านใน 300x240) */
         .puzzle-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(3, 1fr);
             gap: 2px;
-            width: 270px;
-            height: 480px;
+            width: 312px;
+            height: 252px;
             margin: 0 auto 10px auto;
             background: rgba(255, 182, 193, 0.4);
             padding: 4px;
@@ -243,11 +243,12 @@
             border: 2px solid #ff1493;
         }
 
+        /* ชิ้นส่วนจิ๊กซอว์แต่ละช่องขนาด 100x80 (อัตราส่วน 5:4) */
         .puzzle-piece {
-            width: 88px;
-            height: 158px;
+            width: 100px;
+            height: 80px;
             background-image: url('photo1.jpg');
-            background-size: 264px 474px;
+            background-size: 300px 240px;
             cursor: grab;
             border-radius: 6px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.15);
@@ -277,9 +278,10 @@
             box-shadow: inset 0 0 15px #ff1493;
         }
 
+        /* ภาพตัวอย่างหลังต่อเสร็จสัดส่วน 5:4 */
         .completed-preview {
-            width: 270px;
-            height: 480px;
+            width: 300px;
+            height: 240px;
             background-image: url('photo1.jpg');
             background-size: cover;
             background-position: center;
@@ -394,7 +396,6 @@
             </div>
         </div>
 
-        <!-- ข้อความล่างสุด (สีขาว) -->
         <div class="bottom-hint-text" id="bottomHintText">แตะหน้าจอเพื่อเริ่มเพลง</div>
 
         <div class="modal-overlay" id="puzzleModal">
@@ -424,7 +425,6 @@
         const bgMusic = document.getElementById('bgMusic');
         const bottomHintText = document.getElementById('bottomHintText');
         
-        // แสดงข้อความ "แตะหน้าจอเพื่อเริ่มเพลง" ไว้ที่ด้านล่างสุดตอนเริ่มเปิดเว็บ
         bottomHintText.style.display = 'block';
 
         let isMusicStarted = false;
@@ -563,8 +563,9 @@
                 piece.classList.add('puzzle-piece');
                 piece.setAttribute('draggable', 'true');
                 
-                const x = (pieceIndex % 3) * 88;
-                const y = Math.floor(pieceIndex / 3) * 158;
+                // คำนวณพิกัดตัดภาพตามขนาดชิ้นส่วน 100x80 (สัดส่วน 5:4)
+                const x = (pieceIndex % 3) * 100;
+                const y = Math.floor(pieceIndex / 3) * 80;
                 piece.style.backgroundPosition = `-${x}px -${y}px`;
                 piece.dataset.index = currentIndex;
 
@@ -665,7 +666,6 @@
                 questionMark.style.display = 'none';
                 couplePhoto.style.display = 'block';
                 
-                // เปลี่ยนข้อความเป็น "ลองแตะที่รูปของเราดูสิ" (สีขาว) ไว้ที่ด้านล่างสุด
                 bottomHintText.innerText = "ลองแตะที่รูปของเราดูสิ";
                 bottomHintText.style.display = 'block';
 
@@ -744,18 +744,11 @@
             }, 1500);
         }
 
-        const wishMessage = "ขอให้มี๊มีความสุข สมหวัง\n
-ดังปรารถนาทุกประการนะคะ\n
-มีแต่สิ่งดีๆ เข้ามาในชีวิต\n
-ขอให้โรคภัยไข้เจ็บจงลาจากไป\n
-ลอยกระทงลงสู่สายน้ำ\n
-ขอให้นำความสุข ความเจริญ\n
-และสิ่งดีๆ กลับมาหามี๊มากๆ เลยนะคะ\n\n
-รักมี๊นะคะ🥺❤️";
+        const wishMessage = "ขอให้มี๊มีความสุข สมหวัง\n\nดังปรารถนาทุกประการนะคะ\n\nมีแต่สิ่งดีๆ เข้ามาในชีวิต\n\nขอให้โรคภัยไข้เจ็บจงลาจากไป\n\nลอยกระทงลงสู่สายน้ำ\n\nขอให้นำความสุข ความเจริญ\n\nและสิ่งดีๆ กลับมาหามี๊มากๆ เลยนะคะ\n\n\nรักมี๊นะคะ🥺❤️";
         let isTypingStarted = false;
 
         couplePhoto.addEventListener('click', () => {
-            bottomHintText.style.display = 'none'; // ซ่อนข้อความเมื่อกดที่รูปแล้ว
+            bottomHintText.style.display = 'none';
             wishModal.style.display = 'flex';
             if (!isTypingStarted) {
                 isTypingStarted = true;
