@@ -168,6 +168,7 @@
             50% { transform: translateX(-50%) scale(1.06); }
         }
 
+        /* ข้อความล่างสุดเปลี่ยนเป็นสีขาวเรียบร้อยแล้ว */
         .bottom-hint-text {
             position: absolute;
             bottom: 25px;
@@ -207,7 +208,7 @@
 
         .puzzle-box {
             background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255, 240, 245, 0.95));
-            padding: 18px 15px;
+            padding: 15px;
             border-radius: 25px;
             text-align: center;
             width: 100%;
@@ -225,7 +226,7 @@
         .puzzle-box p {
             font-size: 0.8rem;
             color: #c71585;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         /* กรอบจิ๊กซอว์สัดส่วน 5:4 (พื้นที่ภาพด้านใน 300x240) */
@@ -396,6 +397,7 @@
             </div>
         </div>
 
+        <!-- ข้อความล่างสุด (สีขาว) -->
         <div class="bottom-hint-text" id="bottomHintText">แตะหน้าจอเพื่อเริ่มเพลง</div>
 
         <div class="modal-overlay" id="puzzleModal">
@@ -425,6 +427,7 @@
         const bgMusic = document.getElementById('bgMusic');
         const bottomHintText = document.getElementById('bottomHintText');
         
+        // แสดงข้อความ "แตะหน้าจอเพื่อเริ่มเพลง" ไว้ที่ด้านล่างสุดตอนเริ่มเปิดเว็บ
         bottomHintText.style.display = 'block';
 
         let isMusicStarted = false;
@@ -563,7 +566,6 @@
                 piece.classList.add('puzzle-piece');
                 piece.setAttribute('draggable', 'true');
                 
-                // คำนวณพิกัดตัดภาพตามขนาดชิ้นส่วน 100x80 (สัดส่วน 5:4)
                 const x = (pieceIndex % 3) * 100;
                 const y = Math.floor(pieceIndex / 3) * 80;
                 piece.style.backgroundPosition = `-${x}px -${y}px`;
@@ -666,6 +668,7 @@
                 questionMark.style.display = 'none';
                 couplePhoto.style.display = 'block';
                 
+                // เปลี่ยนข้อความเป็น "ลองแตะที่รูปของเราดูสิ" (สีขาว) ไว้ที่ด้านล่างสุด
                 bottomHintText.innerText = "ลองแตะที่รูปของเราดูสิ";
                 bottomHintText.style.display = 'block';
 
@@ -748,7 +751,7 @@
         let isTypingStarted = false;
 
         couplePhoto.addEventListener('click', () => {
-            bottomHintText.style.display = 'none';
+            bottomHintText.style.display = 'none'; // ซ่อนข้อความเมื่อกดที่รูปแล้ว
             wishModal.style.display = 'flex';
             if (!isTypingStarted) {
                 isTypingStarted = true;
